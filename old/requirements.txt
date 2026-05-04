@@ -1,5 +1,0 @@
-matplotlib
-networkx 
-pydot 
-graphviz
-numba
