@@ -10,14 +10,16 @@ def make_graph(n, m=5, seed=0):
     stubs = []
     for u in range(m + 1):
         for v in range(u + 1, m + 1):
-            adj[u].append(v); adj[v].append(u)
+            adj[u].append(v)
+            adj[v].append(u)
             stubs += [u, v]
     for v in range(m + 1, n):
         targets = set()
         while len(targets) < m:
             targets.add(rng.choice(stubs))
         for t in targets:
-            adj[v].append(t); adj[t].append(v)
+            adj[v].append(t)
+            adj[t].append(v)
             stubs += [v, t]
     return adj
 
@@ -39,7 +41,9 @@ def bfs(adj, s):
 def avg_time(fn, *args, runs=5):
     ts = []
     for _ in range(runs):
-        t0 = time.perf_counter(); fn(*args); ts.append(time.perf_counter() - t0)
+        t0 = time.perf_counter()
+        fn(*args)
+        ts.append(time.perf_counter() - t0)
     return sum(ts) / len(ts)
 
 

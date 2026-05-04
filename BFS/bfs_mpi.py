@@ -11,7 +11,8 @@ def mpi_bfs(adj, s, comm):
     dist = [math.inf] * V
     front = []
     if s % P == rank:
-        dist[s] = 0; front = [s]
+        dist[s] = 0
+        front = [s]
 
     while True:
         out = [[] for _ in range(P)]
@@ -24,7 +25,8 @@ def mpi_bfs(adj, s, comm):
         for msgs in inb:
             for w, d in msgs:
                 if dist[w] == math.inf:
-                    dist[w] = d; front.append(w)
+                    dist[w] = d
+                    front.append(w)
 
         if comm.allreduce(len(front), op=MPI.SUM) == 0:
             return dist
@@ -37,6 +39,8 @@ if __name__ == "__main__":
         ts = []
         for _ in range(3):
             comm.Barrier()
-            t0 = MPI.Wtime(); mpi_bfs(g, 0, comm); ts.append(MPI.Wtime() - t0)
+            t0 = MPI.Wtime()
+            mpi_bfs(g, 0, comm)
+            ts.append(MPI.Wtime() - t0)
         if comm.Get_rank() == 0:
             print(f"{label}: V={n:,}  P={comm.Get_size()}  avg={sum(ts)/len(ts)*1000:.1f} ms")

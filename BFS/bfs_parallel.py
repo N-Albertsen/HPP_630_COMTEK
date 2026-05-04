@@ -29,15 +29,20 @@ def parallel_bfs_threads(adj, s, P):
                             if dist[w] == math.inf:
                                 dist[w] = dist[u] + 1
                                 local.append(w)
-            with lock: nxt.extend(local)
+            with lock:
+                nxt.extend(local)
             bar.wait()
-            if tid == 0: frontier, nxt = nxt, []
+            if tid == 0: 
+                frontier, nxt = nxt, []
             bar.wait()
-            if not frontier: return
+            if not frontier: 
+                return
 
     ts = [threading.Thread(target=worker, args=(i,)) for i in range(P)]
-    for t in ts: t.start()
-    for t in ts: t.join()
+    for t in ts:
+        t.start()
+    for t in ts: 
+        t.join()
     return dist
 
 
