@@ -1,5 +1,5 @@
-numpy==1.24
-numba==0.57
-Pillow==9.0
-matplotlib==3.6
-mpi4py==3.1
+numpy==2.4.4
+numba==0.65.1
+Pillow==12.2.0
+matplotlib==3.10.9
+mpi4py==4.1.1
