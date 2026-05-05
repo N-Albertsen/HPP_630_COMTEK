@@ -1,5 +1,5 @@
 """
-COMTEK 6 / ESD 6 — JPEG DCT
+COMTEK 6 — JPEG DCT
 Task I:  Work and Complexity Analysis
 Task II: DAG descriptions for parallel implementation
 

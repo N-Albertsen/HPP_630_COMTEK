@@ -1,5 +1,5 @@
 """
-COMTEK 6 / ESD 6 - JPEG DCT Workshop
+COMTEK 6 - JPEG DCT Workshop
 Main benchmark script
 
 Tasks covered:
@@ -15,7 +15,7 @@ If no image path given, a synthetic test image is generated.
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt                                                                                                                                                         
 import matplotlib.gridspec as gridspec
 import time
 import os

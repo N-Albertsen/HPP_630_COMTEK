@@ -1,5 +1,5 @@
 """
-JPEG DCT Compression - COMTEK 6 / ESD 6
+JPEG DCT Compression - COMTEK 6
 Workshop Assignment - May 2026
 
 Full implementation of JPEG lossy compression pipeline:

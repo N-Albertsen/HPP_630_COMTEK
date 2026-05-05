@@ -1,6 +1,6 @@
 """
 JPEG DCT - MPI Implementation (Task VII)
-COMTEK 6 / ESD 6
+COMTEK 6
 
 Run with:  mpiexec -n <P> python jpeg_mpi.py <image_path> [Kh] [Kw]
 
