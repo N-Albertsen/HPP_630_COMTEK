@@ -190,35 +190,31 @@ def quality_evaluation(img_path: str, factors: list = None):
 # PLOTTING
 # ─────────────────────────────────────────────────────────────────────────────
 
-def plot_timing_comparison(results_small, results_large,
-                            label_small, label_large,
-                            Kh_small, Kh_large, save_path="timing_comparison.png"):
-    """Plot timing for two image sizes and two block sizes."""
-    fig, axes = plt.subplots(1, 2, figsize=(14, 6))
-    fig.suptitle("JPEG DCT Execution Time Comparison", fontsize=14, fontweight='bold')
+def plot_timing_comparison(results, label,
+                            Kh, save_path="timing_comparison.png"):
+    """Plot timing for a single image size / block-size results set."""
+    fig, ax = plt.subplots(figsize=(8, 5))
+    fig.suptitle("JPEG DCT Execution Time", fontsize=14, fontweight='bold')
 
     colors = ["#2196F3", "#FF9800", "#4CAF50", "#F44336"]
     method_names = ["NumPy (vectorized)", "Numba JIT (sequential)",
                     "Numba JIT (parallel)", "Multiprocessing"]
+    short_names = ["NumPy", "Numba Seq", "Numba ∥", "Multiproc"]
 
-    for ax, results, label, Kh in [
-        (axes[0], results_small, label_small, Kh_small),
-        (axes[1], results_large, label_large, Kh_large),
-    ]:
-        means = [results[m]["mean"] for m in method_names]
-        stds  = [results[m]["std"]  for m in method_names]
-        short_names = ["NumPy", "Numba Seq", "Numba ∥", "Multiproc"]
-        bars = ax.bar(short_names, means, yerr=stds, capsize=5,
-                      color=colors, edgecolor='black', linewidth=0.5)
-        ax.set_title(f"{label}\nBlock size: {Kh}×{Kh}", fontsize=11)
-        ax.set_ylabel("Time (s)")
-        ax.set_xlabel("Method")
-        ax.grid(axis='y', alpha=0.4)
+    means = [results[m]["mean"] for m in method_names]
+    stds  = [results[m]["std"]  for m in method_names]
 
-        # Annotate bars
-        for bar, mean in zip(bars, means):
-            ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.001,
-                    f"{mean:.3f}s", ha='center', va='bottom', fontsize=8)
+    bars = ax.bar(short_names, means, yerr=stds, capsize=5,
+                  color=colors, edgecolor='black', linewidth=0.5)
+    ax.set_title(f"{label}\nBlock size: {Kh}×{Kh}", fontsize=11)
+    ax.set_ylabel("Time (s)")
+    ax.set_xlabel("Method")
+    ax.grid(axis='y', alpha=0.4)
+
+    # Annotate bars
+    for bar, mean in zip(bars, means):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.001,
+                f"{mean:.3f}s", ha='center', va='bottom', fontsize=8)
 
     plt.tight_layout()
     plt.savefig(save_path, dpi=150, bbox_inches='tight')
@@ -258,6 +254,25 @@ def plot_worker_sweep(worker_results_small, worker_results_large,
     plt.close()
 
 
+def plot_reconstructed_methods(results, save_path="reconstructed_methods.png"):
+    """Plot the reconstructed images from the four benchmark methods."""
+    method_names = ["NumPy (vectorized)", "Numba JIT (sequential)",
+                    "Numba JIT (parallel)", "Multiprocessing"]
+    fig, axes = plt.subplots(2, 2, figsize=(12, 12))
+    fig.suptitle("Reconstructed Images by Method", fontsize=16, fontweight='bold')
+
+    for ax, name in zip(axes.ravel(), method_names):
+        rec = results[name]["result"]
+        ax.imshow(rec, cmap='gray', vmin=0, vmax=255)
+        ax.set_title(name, fontsize=10)
+        ax.axis('off')
+
+    plt.tight_layout(rect=[0, 0, 1, 0.95])
+    plt.savefig(save_path, dpi=150, bbox_inches='tight')
+    print(f"Saved: {save_path}")
+    plt.close()
+
+
 def plot_quality(quality_results, reconstructed_imgs, original,
                   save_path="quality_evaluation.png"):
     """Plot quality vs compression factor and show example images."""
@@ -274,9 +289,9 @@ def plot_quality(quality_results, reconstructed_imgs, original,
     # PSNR plot
     ax1 = fig.add_subplot(gs[0, :2])
     ax1.semilogx(factors, psnrs, "b.-", linewidth=2, markersize=8)
-    ax1.axhline(40, color='g', linestyle='--', alpha=0.7, label='Score=5 (40dB)')
-    ax1.axhline(30, color='y', linestyle='--', alpha=0.7, label='Score=3 (30dB)')
-    ax1.axhline(20, color='r', linestyle='--', alpha=0.7, label='Score=1 (20dB)')
+    #ax1.axhline(40, color='g', linestyle='--', alpha=0.7, label='Score=5 (40dB)')
+    #ax1.axhline(30, color='y', linestyle='--', alpha=0.7, label='Score=3 (30dB)')
+    #ax1.axhline(20, color='r', linestyle='--', alpha=0.7, label='Score=1 (20dB)')
     ax1.set_xlabel("Compression Factor (log scale)")
     ax1.set_ylabel("PSNR (dB)")
     ax1.set_title("PSNR vs Compression Factor")
@@ -317,7 +332,7 @@ def plot_mpi_speedup(speedup_data, N, M, save_path="mpi_speedup.png"):
     """Plot theoretical MPI speedup curve."""
     if speedup_data is None:
         return
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    fig, ax = plt.subplots()
     fig.suptitle(f"Theoretical MPI Speedup Analysis (Task VII)\n"
                  f"Image={N}×{M}, R=200 Mbps", fontsize=12)
 
@@ -325,7 +340,7 @@ def plot_mpi_speedup(speedup_data, N, M, save_path="mpi_speedup.png"):
     speedups = [d[2] for d in speedup_data]
     efficiency = [d[3] for d in speedup_data]
 
-    ax = axes[0]
+    #ax = axes[0]
     ax.plot(workers, speedups, "b.-", linewidth=2, markersize=8, label="Achievable")
     ax.plot(workers, workers, "k--", alpha=0.5, label="Ideal (linear)")
     ax.set_xlabel("Number of Processes P")
@@ -335,15 +350,15 @@ def plot_mpi_speedup(speedup_data, N, M, save_path="mpi_speedup.png"):
     ax.grid(True, alpha=0.4)
     ax.set_xscale('log', base=2)
 
-    ax = axes[1]
-    ax.plot(workers, efficiency, "r.-", linewidth=2, markersize=8)
-    ax.axhline(80, color='green', linestyle='--', alpha=0.7, label='80% efficiency')
-    ax.set_xlabel("Number of Processes P")
-    ax.set_ylabel("Parallel Efficiency (%)")
-    ax.set_title("Efficiency vs P")
-    ax.legend()
-    ax.grid(True, alpha=0.4)
-    ax.set_xscale('log', base=2)
+    #ax = axes[1]
+    #ax.plot(workers, efficiency, "r.-", linewidth=2, markersize=8)
+    #ax.axhline(80, color='green', linestyle='--', alpha=0.7, label='80% efficiency')
+    #ax.set_xlabel("Number of Processes P")
+    #ax.set_ylabel("Parallel Efficiency (%)")
+    #ax.set_title("Efficiency vs P")
+    #ax.legend()
+    #ax.grid(True, alpha=0.4)
+    #ax.set_xscale('log', base=2)
 
     plt.tight_layout()
     plt.savefig(save_path, dpi=150, bbox_inches='tight')
@@ -424,19 +439,21 @@ if __name__ == "__main__":
     # ─────────────────────────────────────────────────────────────
     print("\n[Plotting] Timing comparison plots...")
     plot_timing_comparison(
-        r_small_8, r_large_8,
-        f"Small image ({N_s}×{M_s})", f"Large image ({N_l}×{M_l})",
-        8, 8,
+        r_small_8,
+        f"({N_s}×{M_s})",
+        8,
         save_path="output/timing_block8.png"
     )
     plot_timing_comparison(
-        r_small_full, r_large_full,
-        f"Small full-block ({N_s}×{M_s})", f"Large full-block ({N_l}×{M_l})",
-        N_s, N_l,
+        r_small_full,
+        f"({N_s}×{M_s})",
+        N_s,
         save_path="output/timing_full_block.png"
     )
     plot_worker_sweep(r_small_8["worker_sweep"], r_large_8["worker_sweep"],
                       save_path="output/worker_sweep.png")
+    plot_reconstructed_methods(r_small_8,
+                               save_path="output/reconstructed_methods_small.png")
 
     # ─────────────────────────────────────────────────────────────
     # TASK VI: Quality evaluation

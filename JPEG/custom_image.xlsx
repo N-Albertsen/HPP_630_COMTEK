@@ -1,0 +1,19 @@
+| Group  | Image       | Method                 | Block Size | Time (ms) | Compression Ratio | Quality (0–5) |
+| -----  | ----------- | ---------------------- | ---------- | --------- | ----------------- | ------------- |
+| 630    | A (256×256) | NumPy (vectorized)     | 8×8        |       2.1 | High              | 5/5           |
+| 630    | A (256×256) | Numba JIT (sequential) | 8×8        |      31.6 | High              | 5/5           |
+| 630    | A (256×256) | Numba JIT (parallel)   | 8×8        |      10.7 | High              | 5/5           |
+| 630    | A (256×256) | Multiprocessing        | 8×8        |      42.8 | High              | 5/5           |
+| 630    | A (256×256) | NumPy (vectorized)     | 256×256    |      11.1 | Low               | 4–5/5         |
+| 630    | A (256×256) | Numba JIT (sequential) | 256×256    |    1020.8 | Low               | 4–5/5         |
+| 630    | A (256×256) | Numba JIT (parallel)   | 256×256    |     940.8 | Low               | 4–5/5         |
+| 630    | A (256×256) | Multiprocessing        | 256×256    |      42.2 | Low               | 4–5/5         |
+
+| 630    | B (512×512) | NumPy (vectorized)     | 8×8        |       8.0 | High              | 5/5           |
+| 630    | B (512×512) | Numba JIT (sequential) | 8×8        |     100.8 | High              | 5/5           |
+| 630    | B (512×512) | Numba JIT (parallel)   | 8×8        |      20.1 | High              | 5/5           |
+| 630    | B (512×512) | Multiprocessing        | 8×8        |      49.8 | High              | 5/5           |
+| 630    | B (512×512) | NumPy (vectorized)     | 512×512    |       6.9 | Low               | 4–5/5         |
+| 630    | B (512×512) | Numba JIT (sequential) | 512×512    |    7264.4 | Low               | 4–5/5         |
+| 630    | B (512×512) | Numba JIT (parallel)   | 512×512    |    7259.7 | Low               | 4–5/5         |
+| 630    | B (512×512) | Multiprocessing        | 512×512    |      81.6 | Low               | 4–5/5         |

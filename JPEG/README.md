@@ -70,8 +70,7 @@ mpiexec -n 8 python jpeg_mpi.py my_photo.jpg 8 8
 - For **Kh=Kw=8**: O(16·N·M) — linear, very efficient
 - For **Kh=N, Kw=M**: O(N·M·(N+M)) — cubic for square images
 
-The DCT step dominates. Steps 3 and 5 have the same complexity since
-the IDCT matrix is simply D^T / (2N), requiring identical operations.
+The DCT step dominates. Steps 3 and 5 have the same complexity since the IDCT matrix is derived from the DCT matrix (approximately D^T/(2N) with special handling for the DC component), requiring identical operations.
 
 ### Why the block approach is efficient (Kh=Kw=8)
 Each 8×8 DCT costs O(8·8·16) = 1024 ops. There are (N/8)·(M/8) = N·M/64
@@ -120,6 +119,8 @@ Run `python complexity_dag.py` to generate the DAG plots.
    Useful if splitting rows/columns across processes.
 2. **Numba parallel** — can parallelise inner loops; useful here.
 3. **MPI** — row/column distribution across nodes is feasible.
+
+There are also memory considerations to be aware of. NumPy uses very high memory for large block tensors, multiprocessing duplicates memory across processes as each worker keeps its own local data, and Numba has minimal extra memory overhead because it operates in-place on shared arrays.
 
 ---
 

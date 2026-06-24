@@ -1,5 +1,4 @@
-Generated test image: output/test_small.png  (256x256)
-Generated test image: output/test_large.png  (512x512)
+Large image: output/test_large.png (512x512)
 
 ============================================================
 COMTEK 6 / ESD 6 — JPEG DCT BENCHMARK
@@ -8,22 +7,22 @@ COMTEK 6 / ESD 6 — JPEG DCT BENCHMARK
 [1/4] Standard JPEG block size (8×8) on small image...
 
 ============================================================
-BENCHMARK: Small (test_small.png)  |  Block size: 8x8  |  Runs: 5
+BENCHMARK: Small (imageB.jpg)  |  Block size: 8x8  |  Runs: 5
 ============================================================
-Image size: 256x256
+Image size: 512x512
   Warming up Numba JIT (compiling)...
   Numba warm-up done.
-  NumPy (vectorized)              0.0049 ± 0.0016 s
-  Numba JIT (sequential)          0.0523 ± 0.0087 s
-  Numba JIT (parallel)            0.0098 ± 0.0020 s
-  Multiprocessing                 0.0723 ± 0.0100 s
+  NumPy (vectorized)              0.0062 ± 0.0019 s
+  Numba JIT (sequential)          0.0955 ± 0.0063 s
+  Numba JIT (parallel)            0.0167 ± 0.0022 s
+  Multiprocessing                 0.0487 ± 0.0074 s
 
   Optimal workers sweep for Multiprocessing:
-    Workers=1    0.0365 s
-    Workers=2    0.0381 s
-    Workers=4    0.0393 s
-    Workers=8    0.0506 s
-    Workers=16   0.0697 s
+    Workers=1    0.0481 s
+    Workers=2    0.0404 s
+    Workers=4    0.0367 s
+    Workers=8    0.0419 s
+    Workers=16   0.0512 s
 
 [2/4] Standard JPEG block size (8×8) on large image...
 
@@ -33,37 +32,37 @@ BENCHMARK: Large (test_large.png)  |  Block size: 8x8  |  Runs: 5
 Image size: 512x512
   Warming up Numba JIT (compiling)...
   Numba warm-up done.
-  NumPy (vectorized)              0.0194 ± 0.0096 s
-  Numba JIT (sequential)          0.1995 ± 0.0145 s
-  Numba JIT (parallel)            0.0311 ± 0.0019 s
-  Multiprocessing                 0.0854 ± 0.0058 s
+  NumPy (vectorized)              0.0107 ± 0.0025 s
+  Numba JIT (sequential)          0.0985 ± 0.0106 s
+  Numba JIT (parallel)            0.0169 ± 0.0014 s
+  Multiprocessing                 0.0481 ± 0.0070 s
 
   Optimal workers sweep for Multiprocessing:
-    Workers=1    0.0917 s
-    Workers=2    0.0739 s
-    Workers=4    0.0663 s
-    Workers=8    0.0800 s
-    Workers=16   0.0853 s
+    Workers=1    0.0506 s
+    Workers=2    0.0372 s
+    Workers=4    0.0364 s
+    Workers=8    0.0387 s
+    Workers=16   0.0518 s
 
-[3/4] Full-image block (256×256) on small image...
+[3/4] Full-image block (512×512) on small image...
 
 ============================================================
-BENCHMARK: Small full-block (256×256)  |  Block size: 256x256  |  Runs: 2
+BENCHMARK: Small full-block (512×512)  |  Block size: 512x512  |  Runs: 2
 ============================================================
-Image size: 256x256
+Image size: 512x512
   Warming up Numba JIT (compiling)...
   Numba warm-up done.
-  NumPy (vectorized)              0.0023 ± 0.0008 s
-  Numba JIT (sequential)          1.8246 ± 0.0042 s
-  Numba JIT (parallel)            1.8848 ± 0.0636 s
-  Multiprocessing                 0.0556 ± 0.0092 s
+  NumPy (vectorized)              0.0064 ± 0.0015 s
+  Numba JIT (sequential)          7.0790 ± 0.0251 s
+  Numba JIT (parallel)            7.0348 ± 0.0157 s
+  Multiprocessing                 0.1072 ± 0.0047 s
 
   Optimal workers sweep for Multiprocessing:
-    Workers=1    0.0587 s
-    Workers=2    0.0480 s
-    Workers=4    0.0496 s
-    Workers=8    0.0439 s
-    Workers=16   0.0501 s
+    Workers=1    0.0847 s
+    Workers=2    0.0762 s
+    Workers=4    0.0861 s
+    Workers=8    0.0729 s
+    Workers=16   0.0999 s
 
 [4/4] Full-image block (512×512) on large image...
 
@@ -73,17 +72,17 @@ BENCHMARK: Large full-block (512×512)  |  Block size: 512x512  |  Runs: 2
 Image size: 512x512
   Warming up Numba JIT (compiling)...
   Numba warm-up done.
-  NumPy (vectorized)              0.0108 ± 0.0021 s
-  Numba JIT (sequential)          14.0556 ± 0.0169 s
-  Numba JIT (parallel)            14.0484 ± 0.0003 s
-  Multiprocessing                 0.1088 ± 0.0151 s
+  NumPy (vectorized)              0.0064 ± 0.0015 s
+  Numba JIT (sequential)          7.0066 ± 0.0168 s
+  Numba JIT (parallel)            7.0698 ± 0.0109 s
+  Multiprocessing                 0.0741 ± 0.0025 s
 
   Optimal workers sweep for Multiprocessing:
-    Workers=1    0.1168 s
-    Workers=2    0.1128 s
-    Workers=4    0.1084 s
-    Workers=8    0.1015 s
-    Workers=16   0.1164 s
+    Workers=1    0.0748 s
+    Workers=2    0.0583 s
+    Workers=4    0.0798 s
+    Workers=8    0.0791 s
+    Workers=16   0.0728 s
 
 [Plotting] Timing comparison plots...
 Saved: output/timing_block8.png
@@ -97,14 +96,14 @@ TASK VI: Quality Evaluation vs Compression Factor
 ============================================================
   Factor |  PSNR (dB) |     SSIM |  Score
 ----------------------------------------
-    0.10 |      51.17 |   0.9999 |      5/5
-    0.25 |      51.12 |   0.9999 |      5/5
-    0.50 |      50.92 |   0.9999 |      5/5
-    1.00 |      49.36 |   0.9999 |      5/5
-    2.00 |      46.48 |   0.9998 |      5/5
-    4.00 |      40.68 |   0.9991 |      5/5
-    8.00 |      35.62 |   0.9971 |      4/5
-   16.00 |      31.42 |   0.9923 |      3/5
+    0.10 |      51.15 |   0.9999 |      5/5
+    0.25 |      51.15 |   0.9999 |      5/5
+    0.50 |      51.08 |   0.9999 |      5/5
+    1.00 |      50.84 |   0.9999 |      5/5
+    2.00 |      50.42 |   0.9999 |      5/5
+    4.00 |      46.43 |   0.9996 |      5/5
+    8.00 |      45.10 |   0.9994 |      5/5
+   16.00 |      35.79 |   0.9946 |      4/5
 Saved: output/quality_evaluation.png
 
 [Task VII] MPI theoretical speedup analysis...
@@ -112,35 +111,35 @@ Saved: output/quality_evaluation.png
 ============================================================
 MPI SPEEDUP ANALYSIS (Task VII)
 ============================================================
-Image size:       256 x 256 = 65536 pixels
+Image size:       512 x 512 = 262144 pixels
 Block size:       8 x 8
 Data rate:        R = 200 Mbps
 t_32:             160.0 ns per float32
-Sequential time:  T_seq = 0.0523 s
-Comm overhead:    2*N*M*t_32 = 20.97 ms
-  alpha = T_comm_total/T_seq = 0.401
+Sequential time:  T_seq = 0.0955 s
+Comm overhead:    2*N*M*t_32 = 83.89 ms
+  alpha = T_comm_total/T_seq = 0.878
 
 Network: switched cluster — scatter/gather each take (N*M/P)*t_32
 => T(P) = (T_seq + 2*N*M*t_32) / P   [both compute & comms scale as 1/P]
 => S(P) = P * T_seq / (T_seq + 2*N*M*t_32)  [linear speedup]
 
-Parallel efficiency E = 71.4%  (constant for all P)
+Parallel efficiency E = 53.2%  (constant for all P)
 
      P |    T(P) [ms] |    Speedup |   Efficiency
 --------------------------------------------------
-     1 |       73.306 |       0.71x |       71.4%
-     2 |       36.653 |       1.43x |       71.4%
-     4 |       18.326 |       2.86x |       71.4%
-     8 |        9.163 |       5.71x |       71.4%
-    16 |        4.582 |      11.42x |       71.4%
-    32 |        2.291 |      22.85x |       71.4%
-    64 |        1.145 |      45.69x |       71.4%
+     1 |      179.393 |       0.53x |       53.2%
+     2 |       89.696 |       1.06x |       53.2%
+     4 |       44.848 |       2.13x |       53.2%
+     8 |       22.424 |       4.26x |       53.2%
+    16 |       11.212 |       8.52x |       53.2%
+    32 |        5.606 |      17.04x |       53.2%
+    64 |        2.803 |      34.07x |       53.2%
 
-Max useful P = number of blocks = 1024
-Max achievable speedup (P=1024):  731.1x
+Max useful P = number of blocks = 4096
+Max achievable speedup (P=4096):  2180.7x
 
 CONCLUSION:
-  Communication overhead is moderate (alpha=0.40). MPI gives 71% efficiency with meaningful speedup.
+  Communication overhead is moderate (alpha=0.88). MPI gives 53% efficiency with meaningful speedup.
 Saved: output/mpi_speedup.png
 
 ============================================================
@@ -151,6 +150,3 @@ ALL TASKS COMPLETE. Output files in ./output/
   output/worker_sweep.png          — Task V (optimal workers)
   output/quality_evaluation.png    — Task VI
   output/mpi_speedup.png           — Task VII
-
-For MPI execution on a cluster:
-  mpiexec -n 4 python jpeg_mpi.py <image_path> 8 8
